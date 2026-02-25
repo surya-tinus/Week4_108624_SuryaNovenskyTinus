@@ -1,8 +1,9 @@
 import { Stack } from 'expo-router';
+import { PaperProvider } from 'react-native-paper';
 
 export default function Layout() {
   return (
-    // Ini adalah "Induk" yang dicari oleh kodemu tadi
-    <Stack />
-  );
+    <PaperProvider>
+      <Stack />
+    </PaperProvider>);
 }

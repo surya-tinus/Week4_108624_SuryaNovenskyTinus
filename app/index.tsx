@@ -1,32 +1,39 @@
 import { Stack } from 'expo-router';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Card, Avatar, IconButton } from 'react-native-paper'; 
 import userData from './data.json';
 import styles from './AppStyles';
 
 export default function App() {
   return (
     <>
-    {/*Screen untuk menampilkan list user*/}
-    <Stack.Screen options={{title: "User List"}}/>
+      <Stack.Screen options={{ title: "User List" }} />
 
-    <ScrollView>
-      {userData.map((users, index) => (
-        <View style={styles.container} key={index}>
-          <View style={styles.card}>
-            <Image 
-              source={{uri: users.photo_url}}
-              style={styles.avatar}
-              />
-              <View>
-                <Text style={styles.boldText}>{users.name}</Text>
-                <Text>{users.email}</Text>
-              </View>
-            </View>
-          </View>
-      ))}
-    </ScrollView>
+      {/* Gunakan contentContainerStyle untuk ScrollView, dan panggil scrollContainer */}
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {userData.map((user, index) => (
+          <Card key={index} style={styles.card} mode="elevated">
+            <Card.Title
+              title={user.name}
+              titleVariant="titleMedium"
+              titleStyle={{color: '#333', fontWeight: 'bold'}}
+              subtitle={user.email}
+              subtitleStyle={{color: '#333'}}
+              subtitleVariant="bodyMedium"
+              left={(props) => (
+                <Avatar.Image {...props} source={{ uri: user.photo_url }} />
+              )}
+              right={(props) => (
+                <IconButton 
+                  {...props} 
+                  icon="chevron-right" 
+                />
+              )}
+            />
+          </Card>
+        ))}
+      </ScrollView>
     </>
-    );
+  );
 }
-
 
